@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bufie3pti4nsc"]
+
+[ext_resource type="Script" uid="uid://itbpceqm1eeh" path="res://scripts_scenes/deco/screen_deco_generator.gd" id="1_rhfcj"]
+
+[node name="screen_deco_generator" type="CanvasLayer"]
+script = ExtResource("1_rhfcj")
+
+[node name="TimerSpawnDecoStar" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="TimerSpawnDecoStar" to="." method="_on_timer_spawn_deco_star_timeout"]

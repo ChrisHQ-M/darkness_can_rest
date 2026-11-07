@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://d1yek7jkalpuy"]
+
+[ext_resource type="Texture2D" uid="uid://w8btkexdlwex" path="res://game_sprites/deco/star/star.png" id="1_aosqv"]
+[ext_resource type="Script" uid="uid://q8btcmvstb5k" path="res://scripts_scenes/deco/star/deco_star.gd" id="2_cr4ju"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csjs5"]
+atlas = ExtResource("1_aosqv")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdaq8"]
+atlas = ExtResource("1_aosqv")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu8ep"]
+atlas = ExtResource("1_aosqv")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqbe4"]
+atlas = ExtResource("1_aosqv")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tpby"]
+atlas = ExtResource("1_aosqv")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skcf2"]
+atlas = ExtResource("1_aosqv")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i33w8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csjs5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdaq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu8ep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqbe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tpby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skcf2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqbe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu8ep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdaq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csjs5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="deco_star" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_i33w8")
+frame = 9
+frame_progress = 1.0
+script = ExtResource("2_cr4ju")
