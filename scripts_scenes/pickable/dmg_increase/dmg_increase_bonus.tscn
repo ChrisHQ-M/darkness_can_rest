@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0fxu45succ8a"]
+
+[ext_resource type="Texture2D" uid="uid://c8xwppiggw0ou" path="res://game_sprites/shrine/atk_bonus.png" id="1_7lf0o"]
+[ext_resource type="Script" uid="uid://c52vqnc15vqj8" path="res://scripts_scenes/pickable/dmg_increase/dmg_increase_bonus.gd" id="2_kjq42"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjq42"]
+atlas = ExtResource("1_7lf0o")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gil0a"]
+atlas = ExtResource("1_7lf0o")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2842"]
+atlas = ExtResource("1_7lf0o")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ek22l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjq42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gil0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2842")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gil0a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7lf0o"]
+radius = 40.04997
+
+[node name="dmg_increase_bonus" type="AnimatedSprite2D" groups=["Pickable"]]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ek22l")
+frame_progress = 0.044794943
+script = ExtResource("2_kjq42")
+
+[node name="pick_area" type="Area2D" parent="." groups=["Pickable"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pick_area"]
+shape = SubResource("CircleShape2D_7lf0o")
+
+[node name="TimerMove" type="Timer" parent="."]
+
+[connection signal="body_entered" from="pick_area" to="." method="_on_pick_area_body_entered"]
+[connection signal="timeout" from="TimerMove" to="." method="_on_timer_move_timeout"]

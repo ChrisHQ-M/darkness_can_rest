@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://reogc2tlqiws"
-path="res://.godot/imported/healthbar_border.png-bed135d5fcdfbeca892cb86feee3782e.ctex"
+uid="uid://dlwngvbiwtko2"
+path="res://.godot/imported/healthbar_progress_reversed.png-56d447e14050a59526f216f50bc4d2f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://heart_icon/healthbar_border.png"
-dest_files=["res://.godot/imported/healthbar_border.png-bed135d5fcdfbeca892cb86feee3782e.ctex"]
+source_file="res://game_sprites/heart_icon/healthbar_progress_reversed.png"
+dest_files=["res://.godot/imported/healthbar_progress_reversed.png-56d447e14050a59526f216f50bc4d2f6.ctex"]
 
 [params]
 

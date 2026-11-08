@@ -55,6 +55,7 @@ script = ExtResource("1_sjvgp")
 speed_max = 0.0
 jump_velocity = 0.0
 gravity = 0.0
+max_hp = 70.0
 
 [node name="tower_sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

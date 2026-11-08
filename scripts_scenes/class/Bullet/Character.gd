@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var jump_velocity = -400.0
 @export var gravity : float = 300.0
 
-var max_hp : float = 100.0
+@export var max_hp : float = 100.0
 var hp : float
 
 # Called when the node enters the scene tree for the first time.
@@ -23,7 +23,11 @@ func setHP(amount : float) -> void:
 		hp = new_hp
 
 func instantiate_bullet(obj : PackedScene, pos : Vector2) -> Bullet:
-	var object : Bullet = obj.instantiate()
+	var object : Bullet = instantiate_obj(obj, pos)
+	return object
+
+func instantiate_obj(obj : PackedScene, pos : Vector2) -> Node2D:
+	var object : Node2D = obj.instantiate()
 	object.global_position = pos
 	get_tree().current_scene.add_child(object)
 	

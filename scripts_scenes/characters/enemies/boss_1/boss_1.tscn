@@ -1,0 +1,119 @@
+[gd_scene load_steps=13 format=3 uid="uid://mb5a3xtglunp"]
+
+[ext_resource type="Texture2D" uid="uid://dvgn71gjor1i2" path="res://game_sprites/enemies/boss_1/boss_1.png" id="1_1i8rm"]
+[ext_resource type="Script" uid="uid://764can20qii" path="res://scripts_scenes/characters/enemies/boss_1/boss_1.gd" id="1_dig28"]
+[ext_resource type="Texture2D" uid="uid://b60lthrgjeb57" path="res://game_sprites/heart_icon/heart_icon_reversed.png" id="3_ylscx"]
+[ext_resource type="Texture2D" uid="uid://13fpaojmsxdy" path="res://game_sprites/heart_icon/healthbar_border_reversed.png" id="4_fwn0l"]
+[ext_resource type="Texture2D" uid="uid://dlwngvbiwtko2" path="res://game_sprites/heart_icon/healthbar_progress_reversed.png" id="5_03xfn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dig28"]
+atlas = ExtResource("1_1i8rm")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_novif"]
+atlas = ExtResource("1_1i8rm")
+region = Rect2(128, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doauo"]
+atlas = ExtResource("1_1i8rm")
+region = Rect2(256, 0, 128, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ylscx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dig28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_novif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doauo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_novif")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1i8rm"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(64, 20, 1)
+direction = Vector3(0, -1, 0)
+spread = 180.0
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = -1.6093254e-05
+gravity = Vector3(0, -150, 0)
+scale_min = 0.5
+scale_max = 1.5
+color = Color(0.078431375, 0.019607844, 0.08235294, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1i8rm"]
+size = Vector2(122, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dig28"]
+size = Vector2(122, 60)
+
+[node name="boss_1" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_dig28")
+speed_max = 0.0
+jump_velocity = 0.0
+gravity = 0.0
+max_hp = 400.0
+
+[node name="boss_1_sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ylscx")
+frame_progress = 0.9635585
+
+[node name="boss_gpu_particles" type="GPUParticles2D" parent="."]
+position = Vector2(0, 13)
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_1i8rm")
+
+[node name="boss_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_1i8rm")
+
+[node name="hitbox" type="Area2D" parent="." groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_dig28")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="heart_icon" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(308.99997, 11)
+scale = Vector2(-0.35, 0.35)
+texture = ExtResource("3_ylscx")
+
+[node name="boss_healthbar" type="TextureProgressBar" parent="CanvasLayer/heart_icon"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = -32.0
+offset_right = 139.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_over = ExtResource("4_fwn0l")
+texture_progress = ExtResource("5_03xfn")
+
+[node name="TimerMoveX" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="TimerMoveY" type="Timer" parent="."]
+
+[connection signal="timeout" from="TimerMoveX" to="." method="_on_timer_move_timeout"]
+[connection signal="timeout" from="TimerMoveY" to="." method="_on_timer_move_y_timeout"]

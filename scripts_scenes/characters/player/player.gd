@@ -3,7 +3,6 @@ extends Character
 @onready var sprite_aura : AnimatedSprite2D = $sprite_aura
 @onready var sprite_body : AnimatedSprite2D = $sprite_aura/sprite_body
 
-
 var speed : float = 0.0
 
 @onready var player_healthbar : TextureProgressBar = $CanvasLayer/heart_icon/player_healthbar
@@ -13,6 +12,7 @@ const SIMPLE_BULLET : PackedScene = preload("res://scripts_scenes/bullet/simple_
 var is_attacking : bool = false
 var time_holding : float = 0.0
 const MAX_TIME_HOLDING : float = 10.0
+var dmg_bonus : float = 1.0
 
 func _ready() -> void:
 	super._ready()
@@ -83,19 +83,21 @@ func update_healthbar() -> void:
 
 func attack(delta : float) -> void:
 	if Input.is_action_pressed("attack") && time_holding < MAX_TIME_HOLDING:
-		var amount : float = delta * 2.0
+		var amount : float = delta * 2.0 * (max(1.0, dmg_bonus/2.0))
 		time_holding += amount
 		setHP(-amount)
 		
 	if Input.is_action_just_released("attack"):
 		var simple_bullet : Bullet = instantiate_bullet(SIMPLE_BULLET, global_position)
 		simple_bullet.setDirection((get_global_mouse_position() - global_position).normalized())
-		simple_bullet.setMultiplier(time_holding)
+		simple_bullet.setMultiplier(time_holding * dmg_bonus)
 		SoundManager.play_shooting_simple_bullet_sfx(0.0, 0.0)
 		time_holding = 0.0
 
+func addDMGbonus(amount : float) -> void:
+	dmg_bonus += amount
 
-func setMAXhp(amount : float) -> void:
+func addMAXhp(amount : float) -> void:
 	max_hp += amount
 	player_healthbar.max_value = max_hp
 	setHP(amount)

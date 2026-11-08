@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b80s08mqtmauo"]
+
+[ext_resource type="Script" uid="uid://sryolhrhvrss" path="res://scripts_scenes/platform/glass_platform/glass_platform.gd" id="1_ls4m5"]
+[ext_resource type="Texture2D" uid="uid://d2kvgyv31rh3p" path="res://game_sprites/tileset/platform.png" id="1_vfhmf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ls4m5"]
+size = Vector2(48, 16)
+
+[node name="glass_platform" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_ls4m5")
+
+[node name="sprite_glass_platform" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_vfhmf")
+
+[node name="glass_platform_collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ls4m5")
