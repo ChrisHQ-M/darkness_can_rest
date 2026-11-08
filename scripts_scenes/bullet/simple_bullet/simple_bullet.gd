@@ -1,8 +1,4 @@
-extends Node2D
-
-const DMG_AMOUNT : float = 5.0
-const SPEED : float = 125.0
-var direction : Vector2
+extends Bullet
 
 var multiplier : float = 1.0
 
@@ -17,7 +13,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	global_position += SPEED * delta * direction
+	super._process(delta)
 	
 	scale -= Vector2(delta, delta)
 	if scale.x <= 0.0:
@@ -28,13 +24,11 @@ func setDirection(dir : Vector2) -> void:
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area != null && area.is_in_group("Enemy"):
-		var body = area.get_parent()
-		body.setHP(-DMG_AMOUNT * multiplier)
+		var body : Character = area.get_parent()
+		body.setHP(-dmg_amount * multiplier)
 		
-		var big_impact : AnimatedSprite2D= preload("res://scripts_scenes/particles/big_impact/big_impact_animation.tscn").instantiate()
-		big_impact.global_position = global_position
+		var big_impact : AnimatedSprite2D = instantiate_obj(BIG_IMPACT, global_position)
 		big_impact.scale *= max(0.5, multiplier/2.5)
-		get_tree().current_scene.add_child(big_impact)
 		
 		if multiplier > 2.0:
 			SoundManager.play_charged_sfx(-5.0, 0.0)

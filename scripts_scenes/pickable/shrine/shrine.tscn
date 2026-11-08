@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://y5l61tbi4b6k"]
+
+[ext_resource type="Texture2D" uid="uid://dl0innbcl8h5i" path="res://game_sprites/shrine/shrine.png" id="1_wuhvo"]
+[ext_resource type="Texture2D" uid="uid://ddosjs0d38yv" path="res://game_sprites/shrine/bowl.png" id="2_iut6t"]
+[ext_resource type="Script" uid="uid://bwy1bowt76f8c" path="res://scripts_scenes/pickable/shrine/shrine.gd" id="2_v4kh1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4kh1"]
+atlas = ExtResource("2_iut6t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vckv7"]
+atlas = ExtResource("2_iut6t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqdbs"]
+atlas = ExtResource("2_iut6t")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sqepv"]
+atlas = ExtResource("2_iut6t")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov4wf"]
+atlas = ExtResource("2_iut6t")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yc1ok"]
+atlas = ExtResource("2_iut6t")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2aw75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4kh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vckv7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqdbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sqepv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov4wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yc1ok")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="shrine" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_wuhvo")
+script = ExtResource("2_v4kh1")
+
+[node name="ball_left" type="AnimatedSprite2D" parent="."]
+position = Vector2(-5, 1)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_2aw75")
+frame = 3
+frame_progress = 0.34632906
+
+[node name="ball_right" type="AnimatedSprite2D" parent="."]
+position = Vector2(6, -1)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_2aw75")
+frame = 3
+frame_progress = 0.34632906

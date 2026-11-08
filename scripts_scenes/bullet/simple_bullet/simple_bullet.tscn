@@ -102,6 +102,8 @@ radius = 5.0
 
 [node name="simple_bullet" type="Node2D"]
 script = ExtResource("1_xaahn")
+dmg_amount = 5.0
+speed = 125.0
 
 [node name="aura_sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

@@ -1,17 +1,12 @@
-extends CharacterBody2D
+extends Character
 
 @onready var sprite_aura : AnimatedSprite2D = $sprite_aura
 @onready var sprite_body : AnimatedSprite2D = $sprite_aura/sprite_body
 
-const SPEED_MAX = 150.0
-const JUMP_VELOCITY = -150.0
-const GRAVITY = 300.0
 
 var speed : float = 0.0
 
 @onready var player_healthbar : TextureProgressBar = $CanvasLayer/heart_icon/player_healthbar
-var max_hp : float = 100.0
-var hp : float
 var coef : float
 
 const SIMPLE_BULLET : PackedScene = preload("res://scripts_scenes/bullet/simple_bullet/simple_bullet.tscn")
@@ -20,7 +15,7 @@ var time_holding : float = 0.0
 const MAX_TIME_HOLDING : float = 10.0
 
 func _ready() -> void:
-	hp = max_hp
+	super._ready()
 	player_healthbar.max_value = max_hp
 	player_healthbar.value = hp
 	coef = scale.x/max_hp
@@ -29,22 +24,22 @@ func _ready() -> void:
 	sprite_aura.play("default")
 
 func _physics_process(delta: float) -> void:
-	horizontal_movement(delta)
+	horizontal_movement()
 	vertical_movement(delta)
 	move_and_slide()
 	
 	attack(delta)
 	setHP(-delta*1.25)
 
-func horizontal_movement(delta : float) -> void:
+func horizontal_movement() -> void:
 	var direction_x : float = Input.get_axis("left", "right")
-	var acceleration : float = SPEED_MAX / 10.0
+	var acceleration : float = speed_max / 10.0
 	
 	if direction_x > 0.0:
-		velocity.x = move_toward(velocity.x, SPEED_MAX * direction_x, acceleration)
+		velocity.x = move_toward(velocity.x, speed_max * direction_x, acceleration)
 		sprite_aura.flip_h = true
 	elif direction_x < 0.0:
-		velocity.x = move_toward(velocity.x, SPEED_MAX * direction_x, acceleration)
+		velocity.x = move_toward(velocity.x, speed_max * direction_x, acceleration)
 		sprite_aura.flip_h = false
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, acceleration)
@@ -52,17 +47,17 @@ func horizontal_movement(delta : float) -> void:
 func vertical_movement(delta : float) -> void:
 	if not is_on_floor():
 		if velocity.y < 0.0:
-			velocity.y += GRAVITY * delta
+			velocity.y += gravity * delta
 		else:
 			var fall_multiplier : float = 1.2
 			if Input.is_action_pressed("down"):
 				fall_multiplier = 5.0
-			velocity.y += GRAVITY * delta * fall_multiplier
+			velocity.y += gravity * delta * fall_multiplier
 	else:
 		if Input.is_action_just_pressed("up"):
 			SoundManager.play_jump_sfx(-4.0, 0.0)
 			tween_jump(0.1, 0.3, 0.1)
-			velocity.y = JUMP_VELOCITY
+			velocity.y = jump_velocity
 			
 	if Input.is_action_just_released("up") && velocity.y < 0.0:
 		velocity.y *= 0.5
@@ -79,15 +74,7 @@ func tween_jump(scale_x : float, scale_y : float, duration : float) -> void:
 	new_tween.tween_property(self, "scale", Vector2(sclx, scly), duration)
 	
 func setHP(amount : float) -> void:
-	var new_hp : float = hp + amount
-	
-	if new_hp < 0.0:
-		hp = 0.0
-	elif new_hp > max_hp:
-		hp = max_hp
-	else:
-		hp = new_hp
-	
+	super.setHP(amount)
 	update_healthbar()
 	
 func update_healthbar() -> void:
@@ -101,15 +88,14 @@ func attack(delta : float) -> void:
 		setHP(-amount)
 		
 	if Input.is_action_just_released("attack"):
-		var simple_bullet : Node2D = instantiate_bullet(SIMPLE_BULLET)
+		var simple_bullet : Bullet = instantiate_bullet(SIMPLE_BULLET, global_position)
 		simple_bullet.setDirection((get_global_mouse_position() - global_position).normalized())
 		simple_bullet.setMultiplier(time_holding)
 		SoundManager.play_shooting_simple_bullet_sfx(0.0, 0.0)
 		time_holding = 0.0
 
-func instantiate_bullet(obj : PackedScene) -> Node2D:
-	var object : Node2D = obj.instantiate()
-	object.global_position = global_position
-	get_tree().current_scene.add_child(object)
-	
-	return object
+
+func setMAXhp(amount : float) -> void:
+	max_hp += amount
+	player_healthbar.max_value = max_hp
+	setHP(amount)
