@@ -9,7 +9,7 @@ var direction_x : float = 1.0
 
 
 func _ready() -> void:
-	hp = max_hp
+	super._ready()
 	losange_sprite.play("idle")
 	
 	timer_move.start()

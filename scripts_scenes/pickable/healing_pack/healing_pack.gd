@@ -1,7 +1,7 @@
 extends AnimatedSprite2D
 
 const BIG_IMPACT_ANIMATION : PackedScene = preload("res://scripts_scenes/particles/big_impact/big_impact_animation.tscn")
-const HEALING_AMOUNT : float = 20.0
+const HEALING_AMOUNT : float = 50.0
 
 @export var speed : float = 0.0
 var direction : Vector2 = Vector2.ZERO

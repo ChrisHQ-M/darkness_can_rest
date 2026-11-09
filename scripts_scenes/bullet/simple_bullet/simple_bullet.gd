@@ -32,7 +32,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		
 		if multiplier > 2.0:
 			SoundManager.play_charged_sfx(-5.0, 0.0)
-		
+		else:
+			SoundManager.play_hit_simple_bullet_sfx(-15.0, 0.0)
+
 		queue_free()
 
 func setMultiplier(amount : float) -> void:

@@ -3,6 +3,8 @@ extends Character
 @onready var sprite_aura : AnimatedSprite2D = $sprite_aura
 @onready var sprite_body : AnimatedSprite2D = $sprite_aura/sprite_body
 
+var nb_max_jump : int = 1
+var nb_jump : int = 0
 var speed : float = 0.0
 
 @onready var player_healthbar : TextureProgressBar = $CanvasLayer/heart_icon/player_healthbar
@@ -13,6 +15,9 @@ var is_attacking : bool = false
 var time_holding : float = 0.0
 const MAX_TIME_HOLDING : float = 10.0
 var dmg_bonus : float = 1.0
+
+var checkpoints_list : Array[Marker2D] = []
+var chkpt_advance : int = -1
 
 func _ready() -> void:
 	super._ready()
@@ -46,6 +51,12 @@ func horizontal_movement() -> void:
 
 func vertical_movement(delta : float) -> void:
 	if not is_on_floor():
+		if Input.is_action_just_pressed("up") && nb_jump < nb_max_jump:
+			SoundManager.play_jump_sfx(-4.0, 0.0 + nb_jump/3.0)
+			tween_jump(0.1, 0.3, 0.1)
+			velocity.y = jump_velocity
+			nb_jump += 1
+		
 		if velocity.y < 0.0:
 			velocity.y += gravity * delta
 		else:
@@ -54,10 +65,12 @@ func vertical_movement(delta : float) -> void:
 				fall_multiplier = 5.0
 			velocity.y += gravity * delta * fall_multiplier
 	else:
-		if Input.is_action_just_pressed("up"):
-			SoundManager.play_jump_sfx(-4.0, 0.0)
+		nb_jump = 0
+		if Input.is_action_just_pressed("up") && nb_jump < nb_max_jump:
+			SoundManager.play_jump_sfx(-4.0, 0.0 + nb_jump/3.0)
 			tween_jump(0.1, 0.3, 0.1)
 			velocity.y = jump_velocity
+			nb_jump += 1
 			
 	if Input.is_action_just_released("up") && velocity.y < 0.0:
 		velocity.y *= 0.5
@@ -75,6 +88,14 @@ func tween_jump(scale_x : float, scale_y : float, duration : float) -> void:
 	
 func setHP(amount : float) -> void:
 	super.setHP(amount)
+	
+	if hp <= 0.0:
+		TransitionEffects.transition_purple()
+		await TransitionEffects.transition_finished
+		
+		GlobalSignals.player_dead.emit()
+		teleportToCheckpoint()
+	
 	update_healthbar()
 	
 func update_healthbar() -> void:
@@ -101,3 +122,27 @@ func addMAXhp(amount : float) -> void:
 	max_hp += amount
 	player_healthbar.max_value = max_hp
 	setHP(amount)
+
+func addMAXjump(amount : int) -> void:
+	nb_max_jump += amount
+
+func addCheckPointList(chkpt : Marker2D) -> bool:
+	if chkpt not in checkpoints_list:
+		checkpoints_list.append(chkpt)
+		return true
+		
+	return false
+
+func setCheckPointAdvance(val : int) -> bool:
+	if val < len(checkpoints_list):
+		chkpt_advance = val
+		print(chkpt_advance)
+		return true
+		
+	return false
+
+func teleportToCheckpoint() -> void:
+	if chkpt_advance >= 0 && chkpt_advance < len(checkpoints_list):
+		hp = max_hp
+		update_healthbar()
+		global_position = checkpoints_list[chkpt_advance].global_position

@@ -22,7 +22,7 @@ func _on_timer_move_timeout() -> void:
 func _on_pick_area_body_entered(body: Node2D) -> void:
 	if body != null && body.is_in_group("Player"):
 		body.addDMGbonus(DMG_BONUS)
-		SoundManager.play_healing_sfx(0.0, -2.0)
+		SoundManager.play_healing_sfx(0.0, -0.5)
 		
 		var big_impact : AnimatedSprite2D = BIG_IMPACT_ANIMATION.instantiate()
 		big_impact.global_position = global_position

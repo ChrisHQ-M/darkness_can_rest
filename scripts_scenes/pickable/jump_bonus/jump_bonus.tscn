@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl6ec03ucu1f4"]
+
+[ext_resource type="Texture2D" uid="uid://jivk1eqco3oe" path="res://game_sprites/shrine/jump_bonus.png" id="1_fbq3b"]
+[ext_resource type="Script" uid="uid://do1mpqi3pgbm7" path="res://scripts_scenes/pickable/jump_bonus/jump_bonus.gd" id="2_h1o5d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hxapx"]
+radius = 40.04997
+
+[node name="jump_bonus" type="Sprite2D" groups=["Pickable"]]
+texture_filter = 1
+texture = ExtResource("1_fbq3b")
+script = ExtResource("2_h1o5d")
+
+[node name="pick_area" type="Area2D" parent="." groups=["Pickable"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pick_area"]
+shape = SubResource("CircleShape2D_hxapx")
+
+[node name="TimerMove" type="Timer" parent="."]
+
+[connection signal="body_entered" from="pick_area" to="." method="_on_pick_area_body_entered"]
+[connection signal="timeout" from="TimerMove" to="." method="_on_timer_move_timeout"]

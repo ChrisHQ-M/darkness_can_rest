@@ -7,6 +7,7 @@ extends Node2D
 @onready var glass_platform_3 : GlassPlatform = $glass_platform3
 @onready var glass_platform_4 : GlassPlatform = $glass_platform4
 @onready var fire_sprite : AnimatedSprite2D = $glass_platform2/fire_sprite
+@onready var area_boss : Area2D = $"../Event_triggers/area_boss_1"
 
 @export var camera_2d : Camera2D
 const LIMIT_BOT : int = -410
@@ -40,7 +41,7 @@ func _on_area_dmg_body_exited(body: Node2D) -> void:
 
 func _on_area_boss_1_body_entered(body: Node2D) -> void:
 	if body != null && body.is_in_group("Player"):
-		if glass_platform_3 != null && not glass_platform_3.getActivated():
+		if glass_platform_3 != null:
 			tween_camera_boss()
 			SoundManager.play_music(SoundManager.BOSS_1_OST, true)
 			
@@ -49,8 +50,10 @@ func _on_area_boss_1_body_entered(body: Node2D) -> void:
 			boss.process_mode = Node.PROCESS_MODE_INHERIT
 			glass_platform_3.activate_collision()
 		
-		if glass_platform_4 != null && not glass_platform_4.getActivated():
+		if glass_platform_4 != null:
 			glass_platform_4.activate_collision()
+		
+		area_boss.set_deferred("monitoring", false)
 
 func tween_camera_boss() -> void:
 	var new_tween : Tween = create_tween()

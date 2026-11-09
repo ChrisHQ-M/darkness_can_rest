@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://wc7bsf2at0r1"]
+[gd_scene load_steps=11 format=3 uid="uid://wc7bsf2at0r1"]
 
 [ext_resource type="Texture2D" uid="uid://duh4pudtuntmm" path="res://game_sprites/bg/purple_bg.png" id="1_7w1mn"]
 [ext_resource type="Script" uid="uid://d10wco8m4w07c" path="res://scripts_scenes/main_menu/main_menu.gd" id="1_yaccw"]
 [ext_resource type="Texture2D" uid="uid://c0j5lsvhllli1" path="res://game_sprites/buttons/play_btn/play_btn_normal.png" id="2_gev0s"]
 [ext_resource type="FontFile" uid="uid://crutk5ngs86jh" path="res://font_text/Jersey_10/Jersey10-Regular.ttf" id="3_2ttkk"]
-[ext_resource type="Texture2D" uid="uid://x4pseqfp8mlq" path="res://game_sprites/cover_without_icon.png" id="3_i586m"]
 [ext_resource type="Texture2D" uid="uid://de5b1u8y7nhro" path="res://game_sprites/buttons/play_btn/play_btn_pressed.png" id="3_yaccw"]
+[ext_resource type="Texture2D" uid="uid://dq41yj61utcrs" path="res://game_sprites/bg/purple_bg_space.png" id="4_4w1us"]
 [ext_resource type="PackedScene" uid="uid://bufie3pti4nsc" path="res://scripts_scenes/deco/screen_deco_generator.tscn" id="4_55s5g"]
 [ext_resource type="Texture2D" uid="uid://br1th7i837bpv" path="res://game_sprites/buttons/play_btn/play_btn_hover.png" id="4_j42dj"]
+[ext_resource type="Texture2D" uid="uid://dnuiqa1er7f35" path="res://game_sprites/cover_rays.png" id="4_t1d2c"]
 [ext_resource type="Script" uid="uid://dicxoj0mdwhrk" path="res://scripts_scenes/main_menu/btn.gd" id="6_j42dj"]
 
 [node name="main_menu" type="Control"]
@@ -28,9 +29,13 @@ scale = Vector2(1.865625, 1.9055556)
 texture = ExtResource("1_7w1mn")
 centered = false
 
+[node name="clouds" type="Sprite2D" parent="deco_2d"]
+position = Vector2(160, 90)
+texture = ExtResource("4_4w1us")
+
 [node name="rays" type="Sprite2D" parent="deco_2d"]
 scale = Vector2(0.50793654, 0.36)
-texture = ExtResource("3_i586m")
+texture = ExtResource("4_t1d2c")
 centered = false
 
 [node name="Label" type="Label" parent="deco_2d"]

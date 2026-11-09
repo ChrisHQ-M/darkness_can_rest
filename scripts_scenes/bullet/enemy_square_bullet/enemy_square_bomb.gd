@@ -26,6 +26,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area != null && area.is_in_group("Player"):
 		var body : Character = area.get_parent()
 		body.setHP(-dmg_amount)
+		SoundManager.play_hit_sfx(-5.0, 0.0)
 		
 		var big_impact : AnimatedSprite2D = instantiate_obj(BIG_IMPACT, global_position)
 		big_impact.scale *= 0.5
@@ -41,5 +42,6 @@ func _on_timer_explode_timeout() -> void:
 		var coord : float = (2 * i * PI) / NB_SQUARE
 		square_bullet.setDirection( Vector2( cos(coord), sin(coord) ) )
 		get_tree().current_scene.add_child(square_bullet)
-		
+	
+	SoundManager.play_explosion_sfx(-20.0, 0.0)
 	queue_free()

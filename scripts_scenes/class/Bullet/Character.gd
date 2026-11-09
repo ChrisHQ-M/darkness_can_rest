@@ -10,6 +10,7 @@ var hp : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalSignals.player_dead.connect(_on_global_signal_player_dead)
 	hp = max_hp
 
 func setHP(amount : float) -> void:
@@ -32,3 +33,6 @@ func instantiate_obj(obj : PackedScene, pos : Vector2) -> Node2D:
 	get_tree().current_scene.add_child(object)
 	
 	return object
+
+func _on_global_signal_player_dead() -> void:
+	hp = max_hp

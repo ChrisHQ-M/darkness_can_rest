@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://m1b3vtshjnsj"]
+[gd_scene load_steps=6 format=3 uid="uid://m1b3vtshjnsj"]
 
 [ext_resource type="Script" uid="uid://b536y2e04cqm7" path="res://scripts_scenes/intro_scene/intro_scene.gd" id="1_p4g6w"]
 [ext_resource type="Texture2D" uid="uid://duh4pudtuntmm" path="res://game_sprites/bg/purple_bg.png" id="1_qct0q"]
 [ext_resource type="FontFile" uid="uid://crutk5ngs86jh" path="res://font_text/Jersey_10/Jersey10-Regular.ttf" id="2_f1ldy"]
 [ext_resource type="PackedScene" uid="uid://bufie3pti4nsc" path="res://scripts_scenes/deco/screen_deco_generator.tscn" id="4_sf3ia"]
+[ext_resource type="PackedScene" uid="uid://d3pkbb71wnslp" path="res://scripts_scenes/intro_scene/press_enter.tscn" id="5_vkfkt"]
 
 [node name="intro_scene" type="Control"]
 layout_mode = 3
@@ -44,5 +45,20 @@ autowrap_mode = 2
 one_shot = true
 
 [node name="screen_deco_generator" parent="." instance=ExtResource("4_sf3ia")]
+
+[node name="press_enter" parent="." instance=ExtResource("5_vkfkt")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -43.5
+offset_top = -12.0
+offset_right = 43.5
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
 
 [connection signal="timeout" from="TimerParagraph" to="." method="_on_timer_paragraph_timeout"]

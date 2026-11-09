@@ -8,6 +8,7 @@ var target : Character = null
 @onready var tower_sprite : AnimatedSprite2D = $tower_sprite
 
 func _ready() -> void:
+	super._ready()
 	tower_sprite.play("idle")
 
 func _on_range_atk_area_body_entered(body: Node2D) -> void:
