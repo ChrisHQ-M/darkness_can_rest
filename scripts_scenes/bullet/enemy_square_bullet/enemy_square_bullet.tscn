@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtkupgn4e8mkx"]
+
+[ext_resource type="Script" uid="uid://biavqf88jbil1" path="res://scripts_scenes/bullet/enemy_square_bullet/enemy_square_bullet.gd" id="1_20s73"]
+[ext_resource type="Texture2D" uid="uid://wxi7f3aorv0g" path="res://game_sprites/bullets/square_bullet/square_bullet.png" id="1_mgw3y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20s73"]
+atlas = ExtResource("1_mgw3y")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stjf2"]
+atlas = ExtResource("1_mgw3y")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vifxk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20s73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stjf2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stjf2"]
+radius = 9.055386
+
+[node name="enemy_square_bullet" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_20s73")
+dmg_amount = 5.0
+speed = 35.0
+
+[node name="sprite_square_bullet" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_vifxk")
+frame = 1
+frame_progress = 0.5746088
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_stjf2")
+
+[node name="TimerDisappear" type="Timer" parent="."]
+one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="TimerDisappear" to="." method="_on_timer_disappear_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

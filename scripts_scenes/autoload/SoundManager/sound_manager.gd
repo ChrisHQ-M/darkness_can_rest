@@ -4,6 +4,7 @@ extends Node
 
 const MAIN_MENU_OST : AudioStream = preload("res://sounds/music/shrine.mp3")
 const MAIN_FIELD_OST : AudioStream = preload("res://sounds/music/shrine_field_theme.mp3")
+const BOSS_1_OST : AudioStream = preload("res://sounds/music/shrine_boss.mp3")
 
 const CLICK_SFX : AudioStream = preload("res://sounds/sfx/click_sfx/click_sfx.ogg")
 const JUMP_SFX : AudioStream = preload("res://sounds/sfx/jump_sfx/jump_sound_effect.ogg")

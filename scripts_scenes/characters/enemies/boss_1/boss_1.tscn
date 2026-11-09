@@ -115,5 +115,20 @@ wait_time = 3.0
 
 [node name="TimerMoveY" type="Timer" parent="."]
 
+[node name="TimerATK" type="Timer" parent="."]
+wait_time = 6.0
+
+[node name="TimerSimpleBullet" type="Timer" parent="."]
+wait_time = 0.75
+
+[node name="TimerSquareBomb" type="Timer" parent="."]
+
+[node name="TimerHealingPack" type="Timer" parent="."]
+wait_time = 7.0
+
 [connection signal="timeout" from="TimerMoveX" to="." method="_on_timer_move_timeout"]
 [connection signal="timeout" from="TimerMoveY" to="." method="_on_timer_move_y_timeout"]
+[connection signal="timeout" from="TimerATK" to="." method="_on_timer_atk_timeout"]
+[connection signal="timeout" from="TimerSimpleBullet" to="." method="_on_timer_simple_bullet_timeout"]
+[connection signal="timeout" from="TimerSquareBomb" to="." method="_on_timer_square_bomb_timeout"]
+[connection signal="timeout" from="TimerHealingPack" to="." method="_on_timer_healing_pack_timeout"]

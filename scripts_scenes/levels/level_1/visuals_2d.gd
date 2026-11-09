@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var boss : Character
+
 @onready var glass_platform : GlassPlatform = $glass_platform
 @onready var glass_platform_2 : GlassPlatform = $glass_platform2
 @onready var glass_platform_3 : GlassPlatform = $glass_platform3
@@ -39,10 +41,12 @@ func _on_area_dmg_body_exited(body: Node2D) -> void:
 func _on_area_boss_1_body_entered(body: Node2D) -> void:
 	if body != null && body.is_in_group("Player"):
 		if glass_platform_3 != null && not glass_platform_3.getActivated():
-			#camera_2d.limit_bottom = LIMIT_BOT
-			#camera_2d.limit_left = LIMIT_LEFT
 			tween_camera_boss()
-
+			SoundManager.play_music(SoundManager.BOSS_1_OST, true)
+			
+			boss.visible = true
+			boss.visibility_canva(true)
+			boss.process_mode = Node.PROCESS_MODE_INHERIT
 			glass_platform_3.activate_collision()
 		
 		if glass_platform_4 != null && not glass_platform_4.getActivated():

@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck1netoysd5bw"]
+
+[ext_resource type="Texture2D" uid="uid://bvjf5swe2qnb7" path="res://game_sprites/bullets/square_bullet/square_bomb.png" id="1_pll8j"]
+[ext_resource type="Script" uid="uid://dr213swso3u65" path="res://scripts_scenes/bullet/enemy_square_bullet/enemy_square_bomb.gd" id="1_skc4v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skc4v"]
+atlas = ExtResource("1_pll8j")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfja3"]
+atlas = ExtResource("1_pll8j")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_duc57"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skc4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfja3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jem7s"]
+radius = 18.027756
+
+[node name="enemy_square_bomb" type="Node2D"]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_skc4v")
+dmg_amount = 15.0
+speed = 20.0
+
+[node name="sprite_square_bomb" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_duc57")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_jem7s")
+
+[node name="TimerDisappear" type="Timer" parent="."]
+one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="TimerExplode" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="TimerDisappear" to="." method="_on_timer_disappear_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="TimerExplode" to="." method="_on_timer_explode_timeout"]
