@@ -1,10 +1,11 @@
 extends CanvasLayer
 
-signal transition_finished
+signal transition_finished # Emit when a transition is finished
 
 @onready var animation_player : AnimationPlayer = $TEAnimationPlayer
 @onready var sprite : AnimatedSprite2D = $TEAnimatedSprite2D
 
+# Animation names
 var t_purple : String = "transition_purple"
 var fo_purple : String = "fade_out_purple"
 

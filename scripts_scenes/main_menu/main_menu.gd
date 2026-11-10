@@ -8,7 +8,7 @@ var has_clicked : bool = false # Prevents multiple transitions (thus "await") ha
 func _ready() -> void:
 	SoundManager.play_music(SoundManager.MAIN_MENU_OST, true)
 
-
+# Change the main menu to the introduction scene
 func _on_play_btn_pressed() -> void:
 	if has_clicked == false:
 		has_clicked = true
@@ -26,9 +26,11 @@ func _on_play_btn_pressed() -> void:
 func tween_camera() -> void:
 	var new_tween : Tween = create_tween()
 	
+	# Zoom out
 	var zoom_out : float = 0.4
 	var duration_out : float = 0.1
 	
+	# Zoom in
 	var zoom_in : float = 1.0
 	var duration_in : float = 0.3
 	

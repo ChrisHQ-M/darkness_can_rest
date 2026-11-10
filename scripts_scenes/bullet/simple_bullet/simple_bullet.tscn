@@ -100,10 +100,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_xh1l5"]
 radius = 5.0
 
-[node name="simple_bullet" type="Node2D"]
+[node name="simple_bullet" type="Node2D" node_paths=PackedStringArray("notifier", "timer_disappear")]
 script = ExtResource("1_xaahn")
 dmg_amount = 5.0
 speed = 125.0
+notifier = NodePath("VisibleOnScreenNotifier2D")
+timer_disappear = NodePath("TimerDisappear")
 
 [node name="aura_sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -132,5 +134,3 @@ wait_time = 2.0
 one_shot = true
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="timeout" from="TimerDisappear" to="." method="_on_timer_disappear_timeout"]

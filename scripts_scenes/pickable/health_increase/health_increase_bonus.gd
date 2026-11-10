@@ -1,6 +1,6 @@
 extends Sprite2D
 
-const HP_BONUS : float = 50.0
+const HP_BONUS : float = 35.0
 
 @onready var timer_move : Timer = $TimerMove
 const SPEED : float = 10.0
@@ -8,6 +8,8 @@ var direction_y : float = -1.0
 
 const BIG_IMPACT_ANIMATION : PackedScene = preload("res://scripts_scenes/particles/big_impact/big_impact_animation.tscn")
 
+
+# Called when enter the tree for the first time
 func _ready() -> void:
 	timer_move.start()
 
@@ -15,10 +17,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	global_position.y += SPEED * delta * direction_y
 
+
+# Changes the vertical direction (up and down)
 func _on_timer_move_timeout() -> void:
 	direction_y *= -1.0
 
 
+# Adds a health bonus to the player when enters in contact
 func _on_pick_area_body_entered(body: Node2D) -> void:
 	if body != null && body.is_in_group("Player"):
 		body.addMAXhp(HP_BONUS)

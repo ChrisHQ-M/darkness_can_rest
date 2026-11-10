@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=4 uid="uid://douecyhgp7cku"]
+[gd_scene load_steps=30 format=4 uid="uid://douecyhgp7cku"]
 
 [ext_resource type="TileSet" uid="uid://cf2s70q0rtn4q" path="res://game_sprites/tileset/level_1.tres" id="1_r7rn2"]
 [ext_resource type="Script" uid="uid://b4f2nfcxb1kyd" path="res://scripts_scenes/levels/level_1/level_1.gd" id="1_uan34"]
 [ext_resource type="Texture2D" uid="uid://dq41yj61utcrs" path="res://game_sprites/bg/purple_bg_space.png" id="2_r7rn2"]
 [ext_resource type="PackedScene" uid="uid://bufie3pti4nsc" path="res://scripts_scenes/deco/screen_deco_generator.tscn" id="3_7fci3"]
+[ext_resource type="Script" uid="uid://ba3egv4334v42" path="res://scripts_scenes/levels/level_1/camera_2d.gd" id="3_t84kd"]
 [ext_resource type="Script" uid="uid://d376pier7xoe" path="res://scripts_scenes/levels/level_1/visuals_2d.gd" id="3_wlavx"]
 [ext_resource type="PackedScene" uid="uid://c1kk6yoplu8k6" path="res://scripts_scenes/characters/player/player.tscn" id="4_r7rn2"]
 [ext_resource type="PackedScene" uid="uid://bof4n2t74qa3f" path="res://scripts_scenes/characters/enemies/losange_enemy/losange_enemy.tscn" id="6_0hiea"]
@@ -90,8 +91,8 @@ boss = NodePath("Enemies/boss_1")
 player = NodePath("player")
 
 [node name="player" parent="." instance=ExtResource("4_r7rn2")]
-position = Vector2(7926, -498)
-scale = Vector2(0.4, 0.4)
+position = Vector2(11.999878, 78)
+scale = Vector2(0.55, 0.55)
 speed_max = 170.0
 
 [node name="Camera2D" type="Camera2D" parent="player"]
@@ -99,6 +100,7 @@ limit_left = -25
 limit_right = 8560
 limit_bottom = 150
 position_smoothing_enabled = true
+script = ExtResource("3_t84kd")
 
 [node name="Visuals2D" type="Node2D" parent="." node_paths=PackedStringArray("boss", "camera_2d")]
 script = ExtResource("3_wlavx")
@@ -125,7 +127,7 @@ centered = false
 [node name="glass_platform" parent="Visuals2D" instance=ExtResource("6_pmn7d")]
 position = Vector2(1583, -56)
 scale = Vector2(7, 1)
-height = 2.0
+init_height = 2.1
 direction = Vector2(0, -1)
 speed = 40.0
 
@@ -133,7 +135,8 @@ speed = 40.0
 position = Vector2(4712, -568.00006)
 rotation = 1.5707964
 scale = Vector2(2, 1)
-height = 33.0
+can_reset = true
+init_height = 37.0
 direction = Vector2(1, 0)
 speed = 70.0
 
@@ -173,6 +176,7 @@ position = Vector2(2642, -397.99994)
 
 [node name="tower_enemy" parent="Enemies" instance=ExtResource("8_xnrqf")]
 position = Vector2(4272, -476)
+max_hp = 120.0
 
 [node name="losange_enemy3" parent="Enemies" instance=ExtResource("6_0hiea")]
 position = Vector2(6492, -550)
@@ -212,24 +216,34 @@ max_hp = 10.0
 [node name="tower_enemy2" parent="Enemies" instance=ExtResource("8_xnrqf")]
 position = Vector2(5121, -670)
 scale = Vector2(2, 2)
+fire_rate = 0.25
 
 [node name="tower_enemy3" parent="Enemies" instance=ExtResource("8_xnrqf")]
 position = Vector2(5551, -668)
 scale = Vector2(2, 2)
+fire_rate = 0.25
 
 [node name="tower_enemy4" parent="Enemies" instance=ExtResource("8_xnrqf")]
 position = Vector2(6247, -667)
 scale = Vector2(2, 2)
+fire_rate = 0.25
 
 [node name="tower_enemy5" parent="Enemies" instance=ExtResource("8_xnrqf")]
 position = Vector2(6771, -665)
 scale = Vector2(2, 2)
+fire_rate = 0.25
 
 [node name="boss_1" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("11_1wr10")]
 position = Vector2(8464, -553)
 target = NodePath("../../player")
 speed_max = 90.0
-max_hp = 1000.0
+max_hp = 1400.0
+
+[node name="tower_enemy6" parent="Enemies" instance=ExtResource("8_xnrqf")]
+position = Vector2(7872, -514)
+scale = Vector2(3, 3)
+fire_rate = 0.45
+max_hp = 200.0
 
 [node name="Labels" type="Node2D" parent="."]
 

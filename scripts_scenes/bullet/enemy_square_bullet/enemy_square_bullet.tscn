@@ -28,11 +28,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_stjf2"]
 radius = 9.055386
 
-[node name="enemy_square_bullet" type="Node2D"]
+[node name="enemy_square_bullet" type="Node2D" node_paths=PackedStringArray("notifier", "timer_disappear")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_20s73")
-dmg_amount = 5.0
+dmg_amount = 10.0
 speed = 35.0
+notifier = NodePath("VisibleOnScreenNotifier2D")
+timer_disappear = NodePath("TimerDisappear")
 
 [node name="sprite_square_bullet" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -52,5 +54,3 @@ one_shot = true
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="timeout" from="TimerDisappear" to="." method="_on_timer_disappear_timeout"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

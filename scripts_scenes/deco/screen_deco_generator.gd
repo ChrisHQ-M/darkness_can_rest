@@ -23,6 +23,7 @@ func instantiate_animated_sprite_2d(obj : PackedScene) -> AnimatedSprite2D:
 func _on_timer_spawn_deco_star_timeout() -> void:
 	var star : AnimatedSprite2D = instantiate_animated_sprite_2d(deco_star)
 	
+	# Randomize the star's scale
 	var scale_range_x : float = randf() * 0.4 + 0.8
 	var scale_range_y : float = randf() * 0.4 + 0.8
 	star.scale = Vector2(scale_range_x, scale_range_y)

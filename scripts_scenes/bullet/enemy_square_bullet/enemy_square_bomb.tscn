@@ -28,11 +28,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jem7s"]
 radius = 18.027756
 
-[node name="enemy_square_bomb" type="Node2D"]
+[node name="enemy_square_bomb" type="Node2D" node_paths=PackedStringArray("notifier", "timer_disappear")]
 scale = Vector2(0.75, 0.75)
 script = ExtResource("1_skc4v")
-dmg_amount = 15.0
+dmg_amount = 30.0
 speed = 20.0
+notifier = NodePath("VisibleOnScreenNotifier2D")
+timer_disappear = NodePath("TimerDisappear")
 
 [node name="sprite_square_bomb" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -54,6 +56,4 @@ wait_time = 1.5
 one_shot = true
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="timeout" from="TimerDisappear" to="." method="_on_timer_disappear_timeout"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="timeout" from="TimerExplode" to="." method="_on_timer_explode_timeout"]

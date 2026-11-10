@@ -2,18 +2,22 @@ extends Node
 
 @onready var music : AudioStreamPlayer = $AudioMusic
 
+# Soundtrack
 const MAIN_MENU_OST : AudioStream = preload("res://sounds/music/shrine.mp3")
 const MAIN_FIELD_OST : AudioStream = preload("res://sounds/music/shrine_field_theme.mp3")
 const BOSS_1_OST : AudioStream = preload("res://sounds/music/shrine_boss.mp3")
 
+# SFX related to attacks
 const HIT_SIMPLE_BULLET_SFX = preload("res://sounds/sfx/shoot_sfx/player_hit_simple.wav")
 const HIT_SFX : AudioStream = preload("res://sounds/sfx/hit_sfx/hit_sound.ogg")
-const CLICK_SFX : AudioStream = preload("res://sounds/sfx/click_sfx/click_sfx.ogg")
-const JUMP_SFX : AudioStream = preload("res://sounds/sfx/jump_sfx/jump_sound_effect.ogg")
-const HEALING_SFX : AudioStream = preload("res://sounds/sfx/healing_sfx/healing_sfx.ogg")
 const CHARGED_BULLET_SFX : AudioStream = preload("res://sounds/sfx/shoot_sfx/hitting_charge_bullet_sound.wav")
 const SHOOTING_SIMPLE_BULLET_SFX : AudioStream = preload("res://sounds/sfx/shoot_sfx/shooting_simple_bullet.wav")
 const EXPLOSION_SFX : AudioStream = preload("res://sounds/sfx/explosion_sfx/explosion_sfx.wav")
+
+# SFX related to physics
+const CLICK_SFX : AudioStream = preload("res://sounds/sfx/click_sfx/click_sfx.ogg")
+const JUMP_SFX : AudioStream = preload("res://sounds/sfx/jump_sfx/jump_sound_effect.ogg")
+const HEALING_SFX : AudioStream = preload("res://sounds/sfx/healing_sfx/healing_sfx.ogg")
 
 # Plays one music in the node's stream "AudioMusic" with a loop option and returns the node.
 func play_music(stream : AudioStream, loop : bool) -> AudioStreamPlayer:

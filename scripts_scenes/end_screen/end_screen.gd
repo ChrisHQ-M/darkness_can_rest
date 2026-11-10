@@ -36,7 +36,7 @@ func _ready() -> void:
 	
 	This is something you will have to look for, as you explore a world that you didn't take time to admire."""
 	
-	paragraph_4 = """And after those errands, darkness can rest."""
+	paragraph_4 = """And after all those errands, darkness can rest."""
 
 	paragraph_array = [paragraph_1, paragraph_2, paragraph_3, paragraph_4]
 	paragraph_array_length = len(paragraph_array)

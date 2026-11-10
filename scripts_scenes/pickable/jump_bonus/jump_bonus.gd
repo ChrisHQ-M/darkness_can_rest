@@ -15,15 +15,19 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	global_position.y += SPEED * delta * direction_y
 
+
+# Changes the vertical direction (up and down)
 func _on_timer_move_timeout() -> void:
 	direction_y *= -1.0
 
 
+# Adds an extra jump to the player when enters in contact
 func _on_pick_area_body_entered(body: Node2D) -> void:
 	if body != null && body.is_in_group("Player"):
 		body.addMAXjump(JUMP_BONUS)
 		SoundManager.play_healing_sfx(0.0, 0.5)
 		
+		# Instantiates an impact animation
 		var big_impact : AnimatedSprite2D = BIG_IMPACT_ANIMATION.instantiate()
 		big_impact.global_position = global_position
 		big_impact.scale *= 0.75

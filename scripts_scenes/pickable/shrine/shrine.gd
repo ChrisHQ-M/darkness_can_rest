@@ -1,5 +1,6 @@
 extends Sprite2D
 
+# Sprite for shrine's decorations
 @onready var ball_left : AnimatedSprite2D = $ball_left
 @onready var ball_right : AnimatedSprite2D = $ball_right
 
